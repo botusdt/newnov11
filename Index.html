@@ -1,26 +1,420 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manus AI Chat</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sol Coin - Digital Mining Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <div class="app">
     <header>
-      <h1>🤖 Manus AI</h1>
-      <p>বাংলায় কথা বলো, AI শুনছে!</p>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-coins"></i>
+                    <h1>Sol Coin</h1>
+                </div>
+                <div class="user-info">
+                    <div class="balance">
+                        <span id="user-balance">0.00</span> USDT
+                    </div>
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <main id="chat-box"></main>
+    <div class="container">
+        <div class="nav-tabs">
+            <div class="nav-tab active" data-tab="mine">
+                <i class="fas fa-digging"></i> Mine
+            </div>
+            <div class="nav-tab" data-tab="upgrade">
+                <i class="fas fa-arrow-up"></i> Upgrade
+            </div>
+            <div class="nav-tab" data-tab="team">
+                <i class="fas fa-users"></i> Team
+            </div>
+            <div class="nav-tab" data-tab="withdraw">
+                <i class="fas fa-wallet"></i> Withdraw
+            </div>
+        </div>
 
-    <footer>
-      <textarea id="user-input" placeholder="তোমার প্রশ্ন লিখো..."></textarea>
-      <button id="send-btn">পাঠাও</button>
-    </footer>
-  </div>
+        <!-- Mine Tab -->
+        <div class="tab-content active" id="mine-tab">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Cloud Mining</div>
+                    <div class="card-badge">Active</div>
+                </div>
+                <div class="mining-container">
+                    <div class="mining-animation">
+                        <div class="mining-circle"></div>
+                        <div class="mining-core">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                    </div>
+                    <h2>Sol Coin Mining</h2>
+                    <p>Mine SOL coins with our advanced cloud mining technology</p>
+                    
+                    <div class="mining-stats">
+                        <div class="stat">
+                            <div class="stat-value" id="mining-speed">0.00</div>
+                            <div class="stat-label">SOL/Hour</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value" id="mined-amount">0.00</div>
+                            <div class="stat-label">Mined SOL</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value" id="mining-time">00:00:00</div>
+                            <div class="stat-label">Remaining</div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-large btn-glow" id="start-mining-btn">
+                        <i class="fas fa-play"></i> Start Mining
+                    </button>
+                    <button class="btn btn-success btn-large btn-glow" id="claim-mining-btn" style="display: none;">
+                        <i class="fas fa-coins"></i> Claim Rewards
+                    </button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Invitation Rewards</div>
+                </div>
+                <div class="invitation-content">
+                    <div class="reward-amount">+300.00 SOL</div>
+                    <p>Invite 3 valid direct subordinates to reward 300 SOL coins</p>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-text">0/3 Invitees</div>
+                    </div>
+                    <button class="btn btn-secondary" id="invite-btn">
+                        <i class="fas fa-share-alt"></i> Invite Friends
+                    </button>
+                </div>
+            </div>
+        </div>
 
-  <script src="script.js"></script>
+        <!-- Upgrade Tab -->
+        <div class="tab-content" id="upgrade-tab">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Mining Tools Upgrade</div>
+                </div>
+                <p>Upgrade your mining tools to increase your mining speed and earnings.</p>
+                
+                <div class="upgrade-grid" id="upgrade-grid">
+                    <!-- Mining tools will be dynamically generated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Tab -->
+        <div class="tab-content" id="team-tab">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Team Statistics</div>
+                </div>
+                
+                <div class="team-stats">
+                    <div class="team-stat">
+                        <div class="team-stat-value" id="direct-team">0</div>
+                        <div class="team-stat-label">Direct Team</div>
+                    </div>
+                    <div class="team-stat">
+                        <div class="team-stat-value" id="total-team">0</div>
+                        <div class="team-stat-label">Total Team</div>
+                    </div>
+                    <div class="team-stat">
+                        <div class="team-stat-value" id="team-earnings">0.00</div>
+                        <div class="team-stat-label">Team Earnings (USDT)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Invite & Earn</div>
+                </div>
+                
+                <div class="referral-code">
+                    <div>
+                        <div>Your Referral Code</div>
+                        <div class="code" id="referral-code">SOL-7X9P2Q</div>
+                    </div>
+                    <button class="copy-btn" id="copy-referral">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
+                
+                <p>Share your referral code with friends and earn 1 USDT for each successful registration.</p>
+                <button class="btn btn-primary">
+                    <i class="fas fa-share"></i> Share Referral Link
+                </button>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Team Rebate Structure</div>
+                </div>
+                
+                <div class="rebate-structure">
+                    <div class="rebate-tier">
+                        <div class="tier-header">
+                            <span>First Tier</span>
+                            <span class="tier-percent">10%</span>
+                        </div>
+                        <p>Earn 10% from your direct referrals' deposits</p>
+                    </div>
+                    
+                    <div class="rebate-tier">
+                        <div class="tier-header">
+                            <span>Second Tier</span>
+                            <span class="tier-percent">3%</span>
+                        </div>
+                        <p>Earn 3% from your second-level referrals' deposits</p>
+                    </div>
+                    
+                    <div class="rebate-tier">
+                        <div class="tier-header">
+                            <span>Third Tier</span>
+                            <span class="tier-percent">1%</span>
+                        </div>
+                        <p>Earn 1% from your third-level referrals' deposits</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Withdraw Tab -->
+        <div class="tab-content" id="withdraw-tab">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Withdraw Funds</div>
+                </div>
+                
+                <div class="withdraw-form">
+                    <div class="form-group">
+                        <label class="form-label">Currently Available Assets (USDT)</label>
+                        <div class="available-balance">0.000000 USDT</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Select Mainnet</label>
+                        <div class="network-options">
+                            <div class="network-option active" data-network="BEP20-USDT">
+                                <div>BEP20-USDT</div>
+                            </div>
+                            <div class="network-option" data-network="BEP20-USDC">
+                                <div>BEP20-USDC</div>
+                            </div>
+                            <div class="network-option" data-network="POLYGON-USDT">
+                                <div>POLYGON-USDT</div>
+                            </div>
+                            <div class="network-option" data-network="POLYGON-USDC">
+                                <div>POLYGON-USDC</div>
+                            </div>
+                            <div class="network-option" data-network="ETH-USDT">
+                                <div>ETH-USDT</div>
+                            </div>
+                            <div class="network-option" data-network="ETH-USDC">
+                                <div>ETH-USDC</div>
+                            </div>
+                            <div class="network-option" data-network="TRC20-USDT">
+                                <div>TRC20-USDT</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Withdrawal Address</label>
+                        <input type="text" class="form-control" id="withdraw-address" placeholder="Enter your wallet address">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Withdrawal Amount</label>
+                        <input type="number" class="form-control" id="withdraw-amount" placeholder="0.00">
+                        <div class="amount-options">
+                            <button class="btn-amount-option" data-percent="25">25%</button>
+                            <button class="btn-amount-option" data-percent="50">50%</button>
+                            <button class="btn-amount-option" data-percent="75">75%</button>
+                            <button class="btn-amount-option" data-percent="100">All</button>
+                        </div>
+                        <div class="amount-limits">
+                            Minimum: 1.0000 USDT | Maximum: 999999.00 USDT
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Security Password</label>
+                        <input type="password" class="form-control" id="security-password" placeholder="Enter your security password">
+                    </div>
+                    
+                    <div class="withdraw-summary">
+                        <div class="summary-item">
+                            <span>Fee:</span>
+                            <span>0 USDT</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Actual Arrival:</span>
+                            <span id="actual-arrival">0 USDT</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-large" id="confirm-withdraw">
+                        Confirm Withdrawal
+                    </button>
+                    
+                    <div class="withdraw-notice">
+                        <p><i class="fas fa-info-circle"></i> Withdrawals can be made at any time. Processing may take up to 24 hours.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="spinner"></div>
+        <p>Processing your transaction...</p>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-text">Operation completed successfully!</span>
+    </div>
+
+    <!-- Deposit Modal -->
+    <div class="modal" id="deposit-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Deposit USDT</div>
+                <button class="close-modal" id="close-deposit-modal">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Select Deposit Method</label>
+                    <div class="select-wrapper">
+                        <select class="form-control" id="deposit-method">
+                            <option value="BEP20-USDT">BEP20-USDT</option>
+                            <option value="BEP20-USDC">BEP20-USDC</option>
+                            <option value="POLYGON-USDT">POLYGON-USDT</option>
+                            <option value="POLYGON-USDC">POLYGON-USDC</option>
+                            <option value="ETH-USDT">ETH-USDT</option>
+                            <option value="ETH-USDC">ETH-USDC</option>
+                            <option value="TRC20-USDT">TRC20-USDT</option>
+                            <option value="TRX">TRX</option>
+                            <option value="BNB">BNB</option>
+                            <option value="ETH">ETH</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="deposit-address" id="deposit-address">
+                    Loading address...
+                </div>
+                
+                <button class="btn btn-secondary" id="copy-address">
+                    <i class="fas fa-copy"></i> Copy Address
+                </button>
+                
+                <div class="deposit-notice">
+                    <p><i class="fas fa-exclamation-triangle"></i> Important:</p>
+                    <ul>
+                        <li>Only send USDT to this address using the selected network</li>
+                        <li>Do not send other cryptocurrencies to this address</li>
+                        <li>Transactions may take 1-3 minutes to confirm</li>
+                        <li>Minimum deposit: 10 USDT</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Invite Modal -->
+    <div class="modal" id="invite-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Invite Friends</div>
+                <button class="close-modal" id="close-invite-modal">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <p>Share your referral link with friends and earn rewards when they join!</p>
+                
+                <div class="referral-link">
+                    <input type="text" class="form-control" id="referral-link" value="https://solcoin.com/ref/SOL-7X9P2Q" readonly>
+                    <button class="btn btn-secondary" id="copy-link">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
+                
+                <div class="social-share">
+                    <button class="btn share-btn" style="background: #3b5998;">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </button>
+                    <button class="btn share-btn" style="background: #1da1f2;">
+                        <i class="fab fa-twitter"></i> Twitter
+                    </button>
+                    <button class="btn share-btn" style="background: #e1306c;">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </button>
+                    <button class="btn share-btn" style="background: #0088cc;">
+                        <i class="fab fa-telegram-plane"></i> Telegram
+                    </button>
+                    <button class="btn share-btn" style="background: #25d366;">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </button>
+                </div>
+                
+                <div class="invite-rewards">
+                    <h3>Invitation Rewards</h3>
+                    <ul>
+                        <li>Earn 1 USDT for each friend who registers</li>
+                        <li>Get 10% from your direct referrals' deposits</li>
+                        <li>Unlock additional rewards when you invite 3 friends</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-nav">
+            <div class="footer-nav-item active" data-tab="mine">
+                <i class="fas fa-digging footer-nav-icon"></i>
+                <span>Mine</span>
+            </div>
+            <div class="footer-nav-item" data-tab="upgrade">
+                <i class="fas fa-arrow-up footer-nav-icon"></i>
+                <span>Upgrade</span>
+            </div>
+            <div class="footer-nav-item" data-tab="team">
+                <i class="fas fa-users footer-nav-icon"></i>
+                <span>Team</span>
+            </div>
+            <div class="footer-nav-item" data-tab="withdraw">
+                <i class="fas fa-wallet footer-nav-icon"></i>
+                <span>Withdraw</span>
+            </div>
+            <div class="footer-nav-item" id="deposit-btn">
+                <i class="fas fa-plus-circle footer-nav-icon"></i>
+                <span>Deposit</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
